@@ -1,4 +1,4 @@
-import Catagories from "../components/Catagories";
+import Catagories from "../components/Categories";
 
 function HomePage() {
   return (

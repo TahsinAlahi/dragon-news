@@ -3,23 +3,29 @@ import { NavLink } from "react-router-dom";
 
 const BASE_URL = "https://openapi.programming-hero.com/api";
 
-interface Catagory {
+interface Category {
   category_id: string;
   category_name: string;
 }
 
-function Catagories() {
-  const [categories, setCatagories] = useState<Catagory[]>([]);
+function Categories() {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  function activeClasses({ isActive }: { isActive: boolean }) {
+    return `font-semibold py-2 w-full rounded-lg hover:bg-gray-400 hover:text-black ${
+      isActive ? "bg-gray-400 text-black" : "text-gray-500 bg-transparent"
+    }`;
+  }
 
   useEffect(() => {
-    async function getCatagories() {
+    async function getCategories() {
       const res = await fetch(`${BASE_URL}/news/categories`);
       const data = await res.json();
 
-      setCatagories(data.data.news_category);
+      setCategories(data.data.news_category);
     }
 
-    getCatagories();
+    getCategories();
   }, []);
 
   return (
@@ -30,7 +36,7 @@ function Catagories() {
           <NavLink
             to={`/category/:${category.category_id}`}
             key={category.category_id}
-            className={`font-semibold py-2 w-full rounded-lg`}
+            className={activeClasses}
           >
             {category.category_name}
           </NavLink>
@@ -40,4 +46,4 @@ function Catagories() {
   );
 }
 
-export default Catagories;
+export default Categories;

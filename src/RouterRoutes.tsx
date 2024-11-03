@@ -6,7 +6,13 @@ const routerRoutes = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-    children: [{ path: "/", element: <HomePage /> }],
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+        children: [{ path: "/category/:category_id" }],
+      },
+    ],
   },
 ]);
 

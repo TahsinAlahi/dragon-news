@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import dateFormatter from "../utils/dateFormatter";
 
-function NavBar() {
+function Header() {
   const { weekDay, day, month, year } = dateFormatter(new Date());
 
   return (
@@ -18,4 +18,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default Header;

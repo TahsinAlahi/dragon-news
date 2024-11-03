@@ -9,9 +9,8 @@ function AppLayout() {
       <Header />
       <NavBar />
       <main className="flex items-start justify-center lg:max-w-screen-lg lg:mx-auto lg:mt-16">
-        <div className="flex-grow">
-          <Outlet />
-        </div>
+        <Outlet />
+
         <Aside />
       </main>
     </div>

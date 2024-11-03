@@ -4,7 +4,7 @@ import QZone from "./QZone";
 
 function Aside() {
   return (
-    <aside className="lg:w-1/4">
+    <aside className="col-span-1">
       <LoginWebsites />
       <FindUsLink />
       <QZone />

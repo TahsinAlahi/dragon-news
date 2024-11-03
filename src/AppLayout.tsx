@@ -8,7 +8,7 @@ function AppLayout() {
     <div>
       <Header />
       <NavBar />
-      <main className="flex items-start justify-center lg:max-w-screen-lg lg:mx-auto lg:mt-16">
+      <main className="grid lg:grid-cols-4 lg:max-w-screen-lg lg:mx-auto lg:mt-16">
         <Outlet />
 
         <Aside />

@@ -4,7 +4,7 @@ import githubImg from "../assets/github.png";
 function LoginWebsites() {
   return (
     <div className="w-full">
-      <h2 className="text-lg font-semibold mb-4">Login With</h2>
+      <h2 className="text-xl font-semibold mb-4">Login With</h2>
       <div className="flex flex-col gap-2">
         <button className="flex items-center justify-center py-1 rounded-md gap-2 w-full border border-blue-700">
           <img src={googleImg} alt="Login with Google" className="w-5" />

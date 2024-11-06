@@ -59,8 +59,8 @@ function NewsCards() {
 
   return (
     <article className="col-span-2 px-3 flex items-start justify-center flex-col gap-5 w-full">
-      {newsOfCategory.map((news) => (
-        <NewsCard news={news} />
+      {newsOfCategory.map((news, index) => (
+        <NewsCard news={news} key={index} />
       ))}
     </article>
   );

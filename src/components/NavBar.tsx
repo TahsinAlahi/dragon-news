@@ -3,7 +3,7 @@ import userPng from "../assets/user.png";
 
 function NavBar() {
   return (
-    <nav className="flex items-center justify-between lg:max-w-screen-lg lg:mx-auto mx-6 mb-6">
+    <nav className="flex items-center justify-between lg:w-full lg:max-w-screen-lg lg:mx-auto lg:mx-6 mb-6">
       <div className="flex items-center justify-center gap-4 text-gray-600 font-semibold">
         <Link to="/" className="hover:underline hover:text-black">
           Home

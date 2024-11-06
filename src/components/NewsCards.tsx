@@ -1,6 +1,7 @@
 // import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
+import NewsCard from "./NewsCard";
 
 const BASE_URl = "https://openapi.programming-hero.com/api";
 
@@ -55,7 +56,9 @@ function NewsCards() {
   console.log(newsOfCategory);
 
   return (
-    <article className="col-span-2 px-3 flex items-start justify-center w-full"></article>
+    <article className="col-span-2 px-3 flex items-start justify-center w-full">
+      <NewsCard news={newsOfCategory[0]} />
+    </article>
   );
 }
 

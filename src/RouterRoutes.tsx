@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import NewsPage from "./pages/NewsPage";
 import LoginPage from "./pages/LoginPage";
 import Register from "./pages/Register";
+import ErrorPage from "./pages/ErrorPage";
 
 const routerRoutes = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const routerRoutes = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
 

@@ -2,7 +2,7 @@ import NavBar from "../components/NavBar";
 
 function Register() {
   return (
-    <div className="pt-6 bg-gray-500/10 min-h-svh flex items-center justify-center flex-col">
+    <div className="pt-6 bg-gray-500/10 min-h-svh flex items-center justify-center flex-col font-sora">
       <NavBar />
       <div className="lg:mx-auto flex-grow w-full mb-5">
         <div className="bg-white w-full lg:w-2/5 lg:mx-auto h-fit my-auto p-10 rounded-lg">

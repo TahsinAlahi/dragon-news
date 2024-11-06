@@ -3,7 +3,7 @@ import NewsCards from "../components/NewsCards";
 
 function HomePage() {
   return (
-    <aside className="col-span-3 grid lg:grid-cols-3">
+    <aside className="lg:col-span-3 grid lg:grid-cols-3 grid-cols-1">
       <Catagories />
       <NewsCards />
     </aside>

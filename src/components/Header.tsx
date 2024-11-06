@@ -5,8 +5,8 @@ function Header() {
   const { weekDay, day, month, year } = dateFormatter(new Date());
 
   return (
-    <header className="flex flex-col items-center justify-center lg:max-w-screen-lg lg:mx-auto lg:gap-3 lg:mt-5">
-      <Link to="/" className="lg:text-6xl font-normal lg:mb-3">
+    <header className="flex flex-col items-center justify-center lg:max-w-screen-lg lg:mx-auto lg:gap-3 my-7 gap-3 lg:my-6">
+      <Link to="/" className="lg:text-6xl text-5xl font-normal mb-3">
         Dragon News
       </Link>
       <h3 className="text-gray-600">Journalism Without Fear or Favour</h3>

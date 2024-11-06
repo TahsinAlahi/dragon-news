@@ -29,8 +29,10 @@ function Categories() {
   }, []);
 
   return (
-    <div className="h-40">
-      <h2 className="text-xl font-semibold mb-4">All Catagories</h2>
+    <div className="mb-6 lg:mb-0">
+      <h2 className="text-xl font-semibold mb-4 lg:text-left text-center">
+        All Catagories
+      </h2>
       <ul className="w-full flex flex-col gap-1 items-start text-center">
         {categories.map((category) => (
           <NavLink

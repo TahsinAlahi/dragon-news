@@ -53,8 +53,6 @@ function NewsCards() {
   if (isLoading || newsOfCategory.length === 0)
     return <Loader className="items-start" />;
 
-  console.log(newsOfCategory);
-
   return (
     <article className="col-span-2 px-3 flex items-start justify-center w-full">
       <NewsCard news={newsOfCategory[0]} />

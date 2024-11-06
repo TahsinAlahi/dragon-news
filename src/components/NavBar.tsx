@@ -3,7 +3,7 @@ import userPng from "../assets/user.png";
 
 function NavBar() {
   return (
-    <nav className="flex items-center justify-between lg:max-w-screen-lg lg:mx-auto lg:mt-6">
+    <nav className="flex items-center justify-between lg:max-w-screen-lg lg:mx-auto mx-6 mb-6">
       <div className="flex items-center justify-center gap-4 text-gray-600 font-semibold">
         <Link to="/" className="hover:underline hover:text-black">
           Home
@@ -15,11 +15,11 @@ function NavBar() {
           Career
         </Link>
       </div>
-      <div className="flex items-center gap-4">
-        <img src={userPng} alt="Login" className="lg:w-9 aspect-square" />
+      <div className="flex items-center lg:gap-4 gap-2">
+        <img src={userPng} alt="Login" className="w-9  aspect-square" />
         <Link
           to="/login"
-          className="lg:px-6 lg:py-2 bg-gray-700 text-white font-bold "
+          className="lg:px-6 lg:py-2 p-2 rounded-md lg:rounded-none bg-gray-700 text-white font-bold "
         >
           Login
         </Link>

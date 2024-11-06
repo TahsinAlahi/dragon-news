@@ -1,4 +1,4 @@
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
 import NewsCard from "./NewsCard";
@@ -29,7 +29,7 @@ interface categoryNewsTypes {
 }
 
 function NewsCards() {
-  // const { category_id } = useParams();
+  const { category_id } = useParams();
   const [newsOfCategory, setNewsOfCategory] = useState<categoryNewsTypes[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,7 +37,11 @@ function NewsCards() {
     async function getCategoryNews() {
       setIsLoading(true);
       try {
-        const res = await fetch(`${BASE_URl}/news/category/01`);
+        const res = await fetch(
+          `${BASE_URl}/news/category/${
+            category_id === undefined ? "01" : category_id
+          }`
+        );
         const data = await res.json();
 
         setNewsOfCategory(data.data);
@@ -48,14 +52,16 @@ function NewsCards() {
       }
     }
     getCategoryNews();
-  }, []);
+  }, [category_id]);
 
   if (isLoading || newsOfCategory.length === 0)
     return <Loader className="items-start" />;
 
   return (
-    <article className="col-span-2 px-3 flex items-start justify-center w-full">
-      <NewsCard news={newsOfCategory[0]} />
+    <article className="col-span-2 px-3 flex items-start justify-center flex-col gap-5 w-full">
+      {newsOfCategory.map((news) => (
+        <NewsCard news={news} />
+      ))}
     </article>
   );
 }

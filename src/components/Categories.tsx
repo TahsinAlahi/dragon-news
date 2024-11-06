@@ -36,7 +36,7 @@ function Categories() {
       <ul className="w-full flex flex-col gap-1 items-start text-center">
         {categories.map((category) => (
           <NavLink
-            to={`/category/:${category.category_id}`}
+            to={`/category/${category.category_id}`}
             key={category.category_id}
             className={activeClasses}
           >

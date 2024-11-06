@@ -3,6 +3,7 @@ import bookmarkImg from "../assets/bookmark.png";
 import shareImg from "../assets/share.png";
 import starImg from "../assets/star.png";
 import viewImg from "../assets/view.png";
+import { Link } from "react-router-dom";
 
 interface categoryNewsTypes {
   _id: string;
@@ -66,9 +67,12 @@ function NewsCard({ news }: { news: categoryNewsTypes }) {
         />
         <p className="text-gray-600 lg:pb-6 pb-4 border-b-2 lg:mb-5 mb-4 border-gray-500/30">
           {news.details.slice(0, 150)}...
-          <span className="ml-2 text-orange-600 font-bold cursor-pointer">
+          <Link
+            className="ml-2 text-orange-600 font-bold cursor-pointer"
+            to={`/news/${news._id}`}
+          >
             Read More
-          </span>
+          </Link>
         </p>
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center lg:gap-2">

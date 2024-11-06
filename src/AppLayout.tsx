@@ -9,7 +9,7 @@ function AppLayout() {
   return (
     <div>
       <Header />
-      {pathname === "/" && <NavBar />}
+      {(pathname === "/" || pathname.includes("/category")) && <NavBar />}
       <main className="grid lg:grid-cols-4 lg:max-w-screen-lg lg:mx-auto lg:mt-16">
         <Outlet />
         <Aside />

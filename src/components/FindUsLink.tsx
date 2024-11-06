@@ -4,7 +4,7 @@ import instagramImg from "../assets/instagram.png";
 
 function FindUsLink() {
   return (
-    <div className="mt-8">
+    <div className="mt-8 lg:text-left text-center mx-4 lg:mx-0">
       <h2 className="text-xl font-semibold mb-4">Find Us On</h2>
       <div className="border-2 border-gray-500/30 rounded-md">
         <a

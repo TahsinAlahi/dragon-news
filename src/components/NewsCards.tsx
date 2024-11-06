@@ -54,8 +54,15 @@ function NewsCards() {
     getCategoryNews();
   }, [category_id]);
 
-  if (isLoading || newsOfCategory.length === 0)
+  if (isLoading && newsOfCategory.length === 0)
     return <Loader className="items-start" />;
+
+  if (newsOfCategory.length === 0)
+    return (
+      <h1 className="text-center h-fit col-span-2 w-full text-2xl">
+        No news found
+      </h1>
+    );
 
   return (
     <article className="col-span-2 px-3 flex items-start justify-center flex-col gap-5 w-full">

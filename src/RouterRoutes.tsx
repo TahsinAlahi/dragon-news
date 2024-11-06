@@ -3,6 +3,7 @@ import AppLayout from "./AppLayout";
 import HomePage from "./pages/HomePage";
 import NewsPage from "./pages/NewsPage";
 import LoginPage from "./pages/LoginPage";
+import Register from "./pages/Register";
 
 const routerRoutes = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const routerRoutes = createBrowserRouter([
         children: [{ path: "/category/:category_id" }],
       },
       {
-        path: "/news/:news_id",
+        path: "news/:news_id",
         element: <NewsPage />,
       },
     ],
@@ -23,6 +24,10 @@ const routerRoutes = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 

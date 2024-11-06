@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 function LoginPage() {
@@ -5,8 +6,8 @@ function LoginPage() {
     <div className="pt-6 bg-gray-500/10 min-h-svh flex items-center justify-center flex-col">
       <NavBar />
       <div className="lg:mx-auto flex-grow w-full">
-        <div className=" w-full lg:w-2/5 lg:mx-auto h-fit my-auto p-10 rounded-lg">
-          <h1 className="lg:pb-10 lg:mb-10 pb-5 mb-7 border-b-2 border-gray-300 lg:text-3xl text-2xl font-semibold text-center text-gray-700">
+        <div className="bg-white w-full lg:w-2/5 lg:mx-auto h-fit my-auto p-10 rounded-lg">
+          <h1 className="pb-5 mb-5 border-b-2 border-gray-300 lg:text-3xl text-2xl font-semibold text-center text-gray-700">
             Login your account
           </h1>
           <form>
@@ -26,10 +27,16 @@ function LoginPage() {
                 className="p-4 lg:p-5 bg-gray-500/10 rounded-md outline-none"
               />
             </div>
-            <button className="w-full p-4 lg:p-5 bg-gray-800 hover:bg-gray-700 rounded-md text-white text-center font-semibold">
+            <button className="w-full p-4 bg-gray-800 hover:bg-gray-700 rounded-md text-white text-center font-semibold">
               Login
             </button>
           </form>
+          <h1 className="text-gray-700 font-semibold text-center mt-4">
+            Don't have an account?
+            <Link className="text-orange-800 font-bold" to="/register">
+              Register
+            </Link>
+          </h1>
         </div>
       </div>
     </div>

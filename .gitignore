@@ -24,3 +24,4 @@ demo-data
 *.njsproj
 *.sln
 *.sw?
+.env

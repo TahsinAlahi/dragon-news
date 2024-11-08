@@ -7,6 +7,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { firebaseAuth } from "../firebase/firebase.auth";
 import { FirebaseError } from "firebase/app";
 import { AuthPromise, AuthType } from "../@types/auth";
+import Loader from "../components/Loader";
 
 const AuthContext = createContext<AuthType | undefined>(undefined);
 
@@ -86,6 +87,16 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  async function logout() {
+    setIsAuthLoading(true);
+    try {
+      await firebaseAuth.signOut();
+      setUser(null);
+    } finally {
+      setIsAuthLoading(false);
+    }
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
       firebaseAuth,
@@ -104,7 +115,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  const value = { register, loginWithEmail, user, isAuthLoading };
+  const value = { register, loginWithEmail, user, isAuthLoading, logout };
+
+  if (isAuthLoading) return <Loader />;
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

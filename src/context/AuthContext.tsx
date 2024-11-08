@@ -1,9 +1,13 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import React, { createContext, useContext } from "react";
 import { firebaseAuth } from "../firebase/firebase.auth";
 
 interface AuthContext {
   register: (email: string, password: string) => Promise<void>;
+  loginWithEmail: (email: string, password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContext | undefined>(undefined);
@@ -17,7 +21,19 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const value = { register };
+  async function loginWithEmail(email: string, password: string) {
+    try {
+      const res = await signInWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const value = { register, loginWithEmail };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

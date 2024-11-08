@@ -1,6 +1,25 @@
+import { FormEvent, useRef } from "react";
 import NavBar from "../components/NavBar";
+import { useAuth } from "../context/AuthContext";
 
 function Register() {
+  const { register } = useAuth();
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const termRef = useRef<HTMLInputElement>(null);
+
+  function handleRegister(e: FormEvent) {
+    e.preventDefault();
+
+    if (
+      emailRef.current?.value &&
+      passwordRef.current?.value &&
+      termRef.current?.checked
+    ) {
+      register(emailRef.current.value, passwordRef.current.value);
+    }
+  }
+
   return (
     <div className="pt-6 bg-gray-500/10 min-h-svh flex items-center justify-center flex-col font-sora">
       <NavBar />
@@ -9,29 +28,30 @@ function Register() {
           <h1 className="pb-5 mb-5 border-b-2 border-gray-300 lg:text-3xl text-2xl font-semibold text-center text-gray-700">
             Register your account
           </h1>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <div className="flex flex-col w-full lg:gap-3 gap-2 mb-6">
+          <form onSubmit={handleRegister}>
+            {/* <div className="flex flex-col w-full lg:gap-3 gap-2 mb-6">
               <label className="text-lg font-semibold">Your Name</label>
               <input
                 type="text"
                 placeholder="Enter your name"
                 className="p-4 lg:p-5 bg-gray-500/10 rounded-md outline-none"
               />
-            </div>
-            <div className="flex flex-col w-full lg:gap-3 gap-2 mb-6">
+            </div> */}
+            {/* <div className="flex flex-col w-full lg:gap-3 gap-2 mb-6">
               <label className="text-lg font-semibold">Photo URL</label>
               <input
                 type="url"
                 placeholder="Enter your photo URL"
                 className="p-4 lg:p-5 bg-gray-500/10 rounded-md outline-none"
               />
-            </div>
+            </div> */}
             <div className="flex flex-col w-full lg:gap-3 gap-2 mb-6">
               <label className="text-lg font-semibold">Email</label>
               <input
                 type="email"
                 placeholder="Enter your email address"
                 className="p-4 lg:p-5 bg-gray-500/10 rounded-md outline-none"
+                ref={emailRef}
               />
             </div>
             <div className="flex flex-col w-full lg:gap-3 gap-2 mb-6">
@@ -40,12 +60,14 @@ function Register() {
                 type="password"
                 placeholder="Enter your password"
                 className="p-4 lg:p-5 bg-gray-500/10 rounded-md outline-none"
+                ref={passwordRef}
               />
             </div>
             <div className="flex flex-row items-center w-full lg:gap-3 gap-2 mb-6">
               <input
                 type="checkbox"
                 className="p-4 lg:p-5 bg-gray-500/10 rounded-md outline-none"
+                ref={termRef}
               />
               <label className="text-lg font-medium">
                 Accept <span className="font-semibold">Term & Conditions</span>

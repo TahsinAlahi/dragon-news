@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import { useAuth } from "../context/AuthContext";
 
 function Register() {
-  const { register } = useAuth();
+  const { register, authError } = useAuth();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const termRef = useRef<HTMLInputElement>(null);
@@ -63,6 +63,11 @@ function Register() {
                 ref={passwordRef}
               />
             </div>
+            {authError && (
+              <p className="text-red-500 font-semibold text-lg w-full bg-red-500/10 text-center py-3 mb-4">
+                {authError}
+              </p>
+            )}
             <div className="flex flex-row items-center w-full lg:gap-3 gap-2 mb-6">
               <input
                 type="checkbox"

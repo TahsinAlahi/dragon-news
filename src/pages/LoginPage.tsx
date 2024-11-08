@@ -1,18 +1,25 @@
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useAuth } from "../context/AuthContext";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
+import { AuthResponse } from "../@types/auth";
 
 function LoginPage() {
   const { loginWithEmail } = useAuth();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const [response, setResponse] = useState<AuthResponse>();
 
-  function handleLogin(e: FormEvent) {
+  async function handleLogin(e: FormEvent) {
     e.preventDefault();
 
     if (emailRef.current?.value && passwordRef.current?.value) {
-      loginWithEmail(emailRef.current.value, passwordRef.current.value);
+      const res = await loginWithEmail(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      setResponse(res);
+      console.log(res);
     }
   }
 
@@ -43,6 +50,17 @@ function LoginPage() {
                 ref={passwordRef}
               />
             </div>
+            {response && (
+              <p
+                className={`${
+                  response.status === "success"
+                    ? "text-green-700 bg-green-500/30"
+                    : "text-red-500 bg-red-500/10"
+                } font-semibold text-lg w-full  text-center py-3 mb-4`}
+              >
+                {response.message}
+              </p>
+            )}
             <button className="w-full p-4 bg-gray-800 hover:bg-gray-700 rounded-md text-white text-center font-semibold">
               Login
             </button>

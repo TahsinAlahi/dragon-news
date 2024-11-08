@@ -9,7 +9,7 @@ type AuthPromise = Promise<AuthResponse | undefined>;
 
 type AuthType = {
   register: (email: string, password: string) => AuthPromise;
-  loginWithEmail: (email: string, password: string) => Promise<void>;
+  loginWithEmail: (email: string, password: string) => AuthPromise;
   user: User | null;
   isAuthLoading: boolean;
 };

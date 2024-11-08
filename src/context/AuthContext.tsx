@@ -6,13 +6,14 @@ import {
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { firebaseAuth } from "../firebase/firebase.auth";
 import { FirebaseError } from "firebase/app";
-import { AuthPromise, AuthResponse, AuthType } from "../@types/auth";
+import { AuthPromise, AuthType } from "../@types/auth";
 
 const AuthContext = createContext<AuthType | undefined>(undefined);
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthType["user"]>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
+  console.log(user);
 
   async function register(email: string, password: string): AuthPromise {
     setIsAuthLoading(true);
@@ -48,11 +49,40 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  async function loginWithEmail(email: string, password: string) {
+  async function loginWithEmail(email: string, password: string): AuthPromise {
+    setIsAuthLoading(true);
     try {
-      await signInWithEmailAndPassword(firebaseAuth, email, password);
+      const userRes = await signInWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+
+      const { user } = userRes;
+
+      if (user) {
+        setUser(user);
+        return { status: "success", message: "User logged in successfully" };
+      }
+
+      return undefined;
     } catch (err) {
-      console.log(err);
+      if (err instanceof FirebaseError) {
+        if (err.code === "auth/wrong-password") {
+          return { status: "error", message: "Wrong password" };
+        } else if (err.code === "auth/user-not-found") {
+          return { status: "error", message: "User not found" };
+        } else if (err.code === "auth/too-many-requests") {
+          return { status: "error", message: "Too many requests" };
+        } else {
+          return { status: "error", message: err.message };
+        }
+      } else {
+        console.error(err);
+        return { status: "error", message: "Something went wrong" };
+      }
+    } finally {
+      setIsAuthLoading(false);
     }
   }
 
@@ -64,6 +94,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsAuthLoading(false);
       }
     );
+
+    if (firebaseAuth.currentUser) {
+      setIsAuthLoading(false);
+    }
 
     return () => {
       unsubscribe();

@@ -1,14 +1,16 @@
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import NavBar from "../components/NavBar";
 import { useAuth } from "../context/AuthContext";
+import { AuthResponse } from "../@types/auth";
 
 function Register() {
-  const { register, authError } = useAuth();
+  const { register } = useAuth();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const termRef = useRef<HTMLInputElement>(null);
+  const [response, setResponse] = useState<AuthResponse>();
 
-  function handleRegister(e: FormEvent) {
+  async function handleRegister(e: FormEvent) {
     e.preventDefault();
 
     if (
@@ -16,7 +18,12 @@ function Register() {
       passwordRef.current?.value &&
       termRef.current?.checked
     ) {
-      register(emailRef.current.value, passwordRef.current.value);
+      const res = await register(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      setResponse(res);
+      console.log(res);
     }
   }
 
@@ -63,11 +70,18 @@ function Register() {
                 ref={passwordRef}
               />
             </div>
-            {authError && (
-              <p className="text-red-500 font-semibold text-lg w-full bg-red-500/10 text-center py-3 mb-4">
-                {authError}
+            {response && (
+              <p
+                className={`${
+                  response.status === "success"
+                    ? "text-green-700 bg-green-500/30"
+                    : "text-red-500 bg-red-500/10"
+                } font-semibold text-lg w-full  text-center py-3 mb-4`}
+              >
+                {response.message}
               </p>
             )}
+
             <div className="flex flex-row items-center w-full lg:gap-3 gap-2 mb-6">
               <input
                 type="checkbox"

@@ -2,30 +2,20 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  User,
 } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { firebaseAuth } from "../firebase/firebase.auth";
 import { FirebaseError } from "firebase/app";
+import { AuthPromise, AuthResponse, AuthType } from "../@types/auth";
 
-interface AuthContext {
-  register: (email: string, password: string) => Promise<void>;
-  loginWithEmail: (email: string, password: string) => Promise<void>;
-  user: User | null;
-  isAuthLoading: boolean;
-  authError: string | null;
-}
-
-const AuthContext = createContext<AuthContext | undefined>(undefined);
+const AuthContext = createContext<AuthType | undefined>(undefined);
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<AuthContext["user"]>(null);
+  const [user, setUser] = useState<AuthType["user"]>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
-  const [authError, setAuthError] = useState<AuthContext["authError"]>(null);
 
-  async function register(email: string, password: string) {
+  async function register(email: string, password: string): AuthPromise {
     setIsAuthLoading(true);
-    setAuthError(null);
     try {
       const userRes = await createUserWithEmailAndPassword(
         firebaseAuth,
@@ -36,21 +26,22 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (user) {
         setUser(user);
+        return { status: "success", message: "User created successfully" };
       }
     } catch (err) {
       if (err instanceof FirebaseError) {
         if (err.code === "auth/email-already-in-use") {
-          setAuthError("Email already in use");
+          return { status: "error", message: "Email already in use" };
         } else if (err.code === "auth/weak-password") {
-          setAuthError("Weak password");
+          return { status: "error", message: "Weak password" };
         } else if (err.code === "auth/too-many-requests") {
-          setAuthError("Too many requests");
+          return { status: "error", message: "Too many requests" };
         } else {
-          console.error(err.message);
+          return { status: "error", message: err.message };
         }
       } else {
         console.error(err);
-        setAuthError("Something went wrong");
+        return { status: "error", message: "Something went wrong" };
       }
     } finally {
       setIsAuthLoading(false);
@@ -68,7 +59,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
       firebaseAuth,
-      (user: AuthContext["user"]) => {
+      (user: AuthType["user"]) => {
         setUser(user);
         setIsAuthLoading(false);
       }
@@ -79,7 +70,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  const value = { register, loginWithEmail, user, isAuthLoading, authError };
+  const value = { register, loginWithEmail, user, isAuthLoading };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
